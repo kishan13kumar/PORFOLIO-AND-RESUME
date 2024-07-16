@@ -1,0 +1,261 @@
+from flask import Flask, render_template_string, send_file
+from pathlib import Path
+import base64
+
+app = Flask(__name__)
+
+# Helper function to convert image to base64 encoded string
+def img_to_base64(img_path):
+    img_bytes = Path(img_path).read_bytes()
+    encoded = base64.b64encode(img_bytes).decode()
+    return encoded
+
+@app.route('/')
+def home():
+    image = img_to_base64("kish.jpg")
+    html_content = f'''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kishan Kumar Suresh Kumar</title>
+        <style>
+            .container {{ max-width: 1200px; margin: auto; padding: 20px; }}
+            .sidebar {{ width: 300px; float: left; padding: 20px; background-color: #f7f7f7; }}
+            .content {{ margin-left: 320px; padding: 20px; }}
+            .img-fluid {{ max-width: 100%; height: auto; }}
+            .card {{ border: 1px solid #eaeaea; border-radius: 8px; transition: box-shadow 0.3s ease-in-out; margin-bottom: 20px; }}
+            .card:hover {{ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }}
+            .card-body {{ padding: 15px; background-color: #f9f9f9; }}
+            .card-title {{ font-size: 18px; margin-bottom: 8px; color: #333; }}
+            .card-text {{ font-size: 14px; color: #777; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="sidebar">
+                <img src="data:image/png;base64,{image}" class="img-fluid" width="225" height="280">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <h2 style="color: #2E86C1;">Kishan Kumar Suresh Kumar</h2>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <i class='bx bx-calendar' style="font-size: 24px;"></i>
+                    <span style="margin-left: 10px;"><strong>Date of Birth:</strong> 13 / 01 / 2005</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <i class='bx bx-map' style="font-size: 24px;"></i>
+                    <span style="margin-left: 10px;"><strong>Place:</strong> Salem</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <i class='bx bx-user' style="font-size: 24px;"></i>
+                    <span style="margin-left: 10px;"><strong>Age:</strong> 19</span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <i class='bx bx-envelope' style="font-size: 24px;"></i>
+                    <span style="margin-left: 10px;"><strong>Mail:</strong> <a href="mailto:krss132005@gmail.com">krss132005@gmail.com</a></span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <i class='bx bxl-github' style="font-size: 24px;"></i>
+                    <span style="margin-left: 10px;"><strong>GitHub:</strong> <a href="https://github.com/Kishankumar1328">Kishankumar1328</a></span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <i class='bx bxl-linkedin' style="font-size: 24px;"></i>
+                    <span style="margin-left: 10px;"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/kishan-kumar-suresh-kumar-037175259/">Kishan Kumar</a></span>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <i class='bx bx-phone' style="font-size: 24px;"></i>
+                    <span style="margin-left: 10px;"><strong>Phone:</strong> <a href="tel:+916380383183">+91 6380383183</a></span>
+                </div>
+                <form action="/download-resume">
+                    <button type="submit">Download Resume</button>
+                </form>
+            </div>
+            <div class="content">
+                <h1>About Me</h1>
+                <div style="font-size: 24px; line-height: 1.6;">
+                    I am a proficient Python developer with a robust foundation in data science fundamentals.
+                    Currently, I am intensifying my expertise in machine learning algorithms and model engineering, 
+                    driven by a deep commitment to advancing the field of artificial intelligence. 
+                    My passion for leveraging technology to solve intricate problems propels my ability to address challenges that require innovative and effective solutions.
+                </div>
+
+                <h1>Education</h1>
+                <h2>High School</h2>
+                <h3>Golden Choice Matric.Hr.Sec.School</h3>
+                <p><strong>Grade 10:</strong> 80% (2019-2020)</p>
+                <p><strong>Grade 12:</strong> 82.5% (2021-2022)</p>
+                <h2>Undergraduate</h2>
+                <h3>M.Kumarasamy College Of Engineering</h3>
+                <p><strong>Degree:</strong> Bachelor's in Artificial Intelligence and Data Science (2022 - 2026)</p>
+
+                <h1>Projects</h1>
+                <h2>Emotion Detection (2024)</h2>
+                <ul>
+                    <li>Proficient in AI and ML for developing emotion detection systems.</li>
+                    <li>Specialized in computer vision, NLP, and affective computing.</li>
+                    <li>Experienced in research and practical applications across diverse domains.</li>
+                    <li>Skilled in designing and implementing deep learning architectures like CNNs, RNNs, and transformer models.</li>
+                </ul>
+                <h2>Stock Dashboard with GPT & ML Model (2024)</h2>
+                <ul>
+                    <li>Experienced AI and ML specialist, skilled at solving complex business problems.</li>
+                    <li>Proficient in using advanced technologies for actionable insights and decision-making.</li>
+                    <li>Expertise in building predictive models for financial markets and creating interactive data visualizations.</li>
+                    <li>Committed to staying updated with AI and ML trends for delivering innovative solutions.</li>
+                </ul>
+                <h2>Stock Prediction (2023)</h2>
+                <ul>
+                    <li>Skilled in stock prediction using data analysis and ML techniques.</li>
+                    <li>Experienced in developing models to forecast stock prices and trends.</li>
+                    <li>Proficient in utilizing historical data and market indicators for predictive modeling.</li>
+                    <li>Dedicated to leveraging technology for accurate and informed investment decisions.</li>
+                </ul>
+                <h2>Medicine Recommendation System (2024)</h2>
+                <p>The Allopathy Medicine Recommendation System is a sophisticated tool designed to assist healthcare professionals 
+                    in making informed decisions regarding the diagnosis and treatment of various diseases. By leveraging machine 
+                    learning techniques and clinical expertise, this system aims to enhance clinical decision-making, improve patient 
+                    care outcomes, and increase healthcare efficiency.</p>
+
+                <h1>Skills</h1>
+                <h2>Technical Skills</h2>
+                <ul>
+                    <li>Python: 90%</li>
+                    <li>Data Analysis: 85%</li>
+                    <li>Data Science: 80%</li>
+                    <li>Machine Learning: 75%</li>
+                    <li>C: 70%</li>
+                    <li>Java: 65%</li>
+                    <li>HTML: 60%</li>
+                    <li>CSS: 55%</li>
+                </ul>
+                <h2>Soft Skills</h2>
+                <ul>
+                    <li>Teamwork: Collaborated effectively with team members to achieve project goals and ensure smooth workflow.</li>
+                    <li>Adaptability: Adapted to new challenges and environments quickly, maintaining high performance.</li>
+                    <li>Communication: Communicated complex technical concepts clearly to non-technical stakeholders.</li>
+                    <li>Time management: Efficiently managed time to balance multiple projects and meet deadlines.</li>
+                    <li>Creativity: Demonstrated creative problem-solving skills in developing innovative solutions.</li>
+                </ul>
+
+                                <h1>Certifications & Badges</h1>
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <a href="https://www.hackerrank.com/certificates/8c2f4f9d69d8" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Python</h5>
+                                    <p class="card-text">HackerRank</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="https://www.credly.com/badges/f7efca15-02ec-46be-a0ac-84c62fea02b3/linked_in_profile" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Python For Data Science</h5>
+                                    <p class="card-text">IBM</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="https://www.credly.com/badges/ef16ffb5-db3c-badges/linked_in_profile" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Data Analysis Using Python</h5>
+                                    <p class="card-text">IBM</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="https://www.credly.com/badges/a33539eb-e491-449c-8a12-6f1f925248ba/linked_in_profile" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Data Visualization Using Python</h5>
+                                    <p class="card-text">IBM</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <a href="https://www.credly.com/badges/7b399bf8-3691-4ede-b4a9-77cfa15fb325/linked_in_profile" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Applied Data Science</h5>
+                                    <p class="card-text">IBM</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="https://www.credly.com/badges/77aad513-7672-4d04-bfb8-39b37e55d986" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Machine Learning with Python</h5>
+                                    <p class="card-text">IBM</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="https://courses.cognitiveclass.ai/certificates/e605bffd4da945149049fe4a2955efd4" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Prompt Engineering</h5>
+                                    <p class="card-text">IBM</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="https://www.credly.com/badges/70ae2196-2b81-4544-b703-16d7b09cdccb/linked_in_profile" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Data Science Methodology</h5>
+                                    <p class="card-text">IBM</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="https://www.credly.com/badges/ff7ceaf4-a2b6-4b41-a27e-ac1b361f060f/linked_in_profile" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Data Science Foundation</h5>
+                                    <p class="card-text">IBM</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card">
+                            <a href="https://www.cloudskillsboost.google/public_profiles/c48c7f95-8155-458b-87af-46cb13ef6f95/badges/8493572?utm_medium=social&utm_source=linkedin&utm_campaign=ql-social-share" target="_blank">
+                                <div class="card-body">
+                                    <h5 class="card-title">Intro To Generative AI</h5>
+                                    <p class="card-text">Google</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <h1>Contact Me</h1>
+                <div class="row">
+                    <div class="col">
+                        <h2>Address</h2>
+                        <p>93, Govindammal Nagar,</p>
+                        <p>Seelanaickenpatty,</p>
+                        <p>Salem - 636 201</p>
+                    </div>
+                    <div class="col">
+                        <h2>Connect With Me</h2>
+                        <p>Mail: <a href="mailto:krss132005@gmail.com">krss132005@gmail.com</a></p>
+                        <p>GitHub: <a href="https://github.com/Kishankumar1328">Kishankumar1328</a></p>
+                        <p>LinkedIn: <a href="https://www.linkedin.com/in/kishan-kumar-suresh-kumar-037175259/">Kishan Kumar</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+
+    </body>
+    </html>
+    '''
+    return render_template_string(html_content)
+
+
+@app.route('/download-resume')
+def download_resume():
+    resume_path = "Kishan_Kumar_Resume.pdf"
+    return send_file(resume_path, as_attachment=True)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
